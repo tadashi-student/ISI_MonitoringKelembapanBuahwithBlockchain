@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Monitoring Pengiriman Buah</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0"></script>
+    
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 20px; background-color: #f0f2f5; color: #1c1e21; }
+        .container { max-width: 1200px; margin: auto; }
+        h1, h2, h3 { color: #1877f2; }
+        button { padding: 10px 15px; background-color: #1877f2; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; margin-right: 10px; transition: background-color 0.3s; }
+        button:hover { background-color: #166fe5; }
+        button.secondary { background-color: #e4e6eb; color: #4b4f56; }
+        button.secondary:hover { background-color: #dcdfe3; }
+        .status { font-style: italic; color: #606770; }
+        .card { margin-bottom: 20px; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .controls, .filter-container { padding-bottom: 5px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input, .form-group select { width:100%; box-sizing: border-box; padding: 10px; border: 1px solid #dddfe2; border-radius: 6px; font-size: 16px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f5f6f7; }
+        tbody tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard Monitoring Pengiriman Buah via Blockchain</h1>
+        
+        <div class="card controls">
+            <button id="connectButton">Hubungkan Wallet MetaMask</button>
+            <p class="status" id="walletStatus">Status Wallet: Belum Terhubung</p>
+        </div>
+        
+        <div id="adminDashboard" style="display:none;">
+            <div class="card">
+                <h2>Dashboard Admin</h2>
+                <h3>Daftarkan Pengiriman Baru</h3>
+                <form id="registerShipmentForm">
+                    <div class="form-group">
+                        <label for="shipmentId">ID Pengiriman :</label>
+                        <input type="text" id="shipmentId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyerAddress">Alamat Wallet Pembeli:</label>
+                        <input type="text" id="buyerAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Deskripsi (contoh: Pengiriman Alpukat ke Jakarta):</label>
+                        <input type="text" id="description" required>
+                    </div>
+                    <button type="submit">Daftarkan Pengiriman</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="buyerDashboard" style="display:none;">
+            <div class="card">
+                <h2>Dashboard Pembeli</h2>
+                <div class="form-group">
+                    <label for="shipmentSelector">Pilih Pengiriman untuk Dipantau:</label>
+                    <select id="shipmentSelector"></select>
+                </div>
+                <h3 id="shipmentDescription"></h3>
+                <div class="controls">
+                    <button id="refreshDataButton">🔄 Segarkan Data</button>
+                    <button id="saveChartButton" class="secondary">💾 Simpan Grafik</button>
+                    <button id="saveCsvButton" class="secondary">📄 Simpan Data (CSV/Excel)</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Grafik Suhu & Kelembapan</h3>
+                <canvas id="sensorChart"></canvas>
+            </div>
+            <div class="card">
+                <h3>Riwayat Data Tabel</h3>
+                <table id="sensorDataTable">
+                    <thead>
+                        <tr>
+                            <th>Waktu (WIB)</th>
+                            <th>Suhu (°C)</th>
+                            <th>Kelembapan (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="noAccessView" class="card" style="display:none;">
+            <h2>Akses Ditolak</h2>
+            <p>Alamat wallet Anda tidak terdaftar untuk memantau pengiriman apa pun. Silakan hubungi admin/penjual.</p>
+        </div>
+    </div>
+
+    <script src="./ethers.umd.min.js" type="application/javascript"></script>
+    <script src="app.js"></script>
+</body>
+</html>

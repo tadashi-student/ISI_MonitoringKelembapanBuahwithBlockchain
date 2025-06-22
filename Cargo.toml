@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "modbus_client",
+    "tcp_server",
+]
+
+# Opsional: Anda bisa menambahkan bagian resolver jika belum ada.
+# Jika Anda membuat workspace dari awal dengan 'cargo new --lib some_name' lalu menambahkan member,
+# Cargo mungkin akan menambahkan ini secara otomatis. Jika tidak, tidak masalah untuk proyek kita.
+# resolver = "2"
