@@ -47,24 +47,26 @@ Sebelum menjalankan proyek ini, pastikan Anda telah menginstal perangkat lunak b
 ## 5. Struktur Folder Proyek
 
 Untuk kemudahan pengelolaan, disarankan untuk menyatukan semua bagian proyek dalam satu folder utama.
-├── rust_backend/             <-- Folder proyek Rust 
-│   ├── .env                  <-- File konfigurasi (perlu dibuat)
+NAMA_PROYEK_ANDA/
+├── rust_backend/             <-- Folder untuk semua kode Rust (sebelumnya TUGAS4)
+│   ├── .env                  <-- File konfigurasi (perlu dibuat manual, diabaikan oleh Git)
 │   ├── Cargo.toml            <-- File workspace Rust
-│   ├── modbus_client/
-│   └── tcp_server/
+│   ├── modbus_client/        <-- Sub-proyek client sensor
+│   └── tcp_server/           <-- Sub-proyek server TCP & Blockchain
 │
-├── blockchain_dapp/          <-- Folder proyek Hardhat
-│   ├── contracts/
-│   ├── scripts/
-│   ├── index.html
-│   ├── app.js
-│   └── ...
+├── blockchain_dapp/          <-- Folder untuk semua kode Hardhat & DApp (sebelumnya proyek-blockchain)
+│   ├── contracts/            <-- Tempat menyimpan file smart contract .sol
+│   ├── scripts/              <-- Tempat menyimpan skrip deployment .js
+│   ├── index.html            <-- File utama DApp
+│   ├── app.js                <-- Logika JavaScript DApp
+│   ├── ethers.umd.min.js     <-- Library Ethers.js lokal
+│   └── ...                   <-- File & folder Hardhat lainnya
 │
-├── qt.py            <-- file untuk aplikasi dashboard PyQt
-│  
-│  
+├── gui_desktop/              <-- (Saran) Folder terpisah untuk aplikasi PyQt
+│   ├── gui_app.py            <-- File utama aplikasi desktop Anda
+│   └── requirements.txt      <-- Daftar dependensi Python
 │
-└── README.md      
+└── README.md                 <-- File penjelasan proyek ini
 
 ## 6. Langkah-langkah Instalasi dan Menjalankan
 
